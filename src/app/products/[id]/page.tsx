@@ -20,7 +20,7 @@ export default function ProductPage() {
       <div className="container mx-auto py-20 px-4 text-center">
         <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
         <p className="mb-8">
-          The product you're looking for doesn't exist or has been removed.
+          The product you are looking for does not exist or has been removed.
         </p>
         <Button asChild>
           <Link href="/products">

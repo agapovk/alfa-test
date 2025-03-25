@@ -32,7 +32,7 @@ export default function ProductList() {
 
   React.useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   React.useEffect(() => {
     console.log('searchQuery effect');
@@ -41,7 +41,7 @@ export default function ProductList() {
         product.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
     );
-  }, [searchQuery]);
+  }, [searchQuery, storeProducts]);
 
   React.useEffect(() => {
     console.log('setFiltered effect');
