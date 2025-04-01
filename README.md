@@ -1,6 +1,6 @@
 # Alfa Test Project
 
-![Project Screenshot](/screenshot.png)
+![Project Screenshot](./public/screenshot.png)
 
 ## Overview
 
@@ -9,7 +9,7 @@ This project is a Single Page Application (SPA) developed as a test assignment. 
 ## Features
 
 1. **Product List**:
-   - Display a list of products on the `/products` page.
+   - A list of products on the `/products` page.
    - Each card includes:
      - A like icon that toggles a like state, changing color when liked.
      - A delete icon to remove the card from the list.
@@ -26,19 +26,12 @@ This project is a Single Page Application (SPA) developed as a test assignment. 
    - The form includes mandatory fields with basic validation.
    - On submission, save the data to the internal store.
 
-## Bonus Features
-
--  Pagination for the product list.
--  Product card editing capabilities.
--  Additional filtering options.
--  Search functionality without a submit button.
-
 ## Technology Stack
 
 -  **TypeScript**
--  **React/Next.js**
--  **Redux or Zustand** for state management
--  UI libraries and form handling libraries as needed
+-  **Next.js**
+-  **Zustand** for state management
+-  **Shadcn/ui**
 
 ## Installation
 
@@ -51,9 +44,11 @@ To run this project locally, follow these steps:
 2.	Navigate to the project directory:
   ```bash
   cd alfa-test
+
 3.	Install dependencies:
   ```bash
   npm install
+
 4.	Start the application:
   ```bash
   npm run dev
@@ -62,7 +57,7 @@ To run this project locally, follow these steps:
 The project is deployed on Vercel. Please find the live version [Deploy on Vercel](https://alfa-test-two.vercel.app/products)
 
 ## Usage
-	•	Navigate to ⁠/products to view the product list.
-	•	Use the like and delete icons on each card to interact with the products.
-	•	Click on a product card to view detailed information.
-	•	Create new products via the ⁠/create-product page.
+  - Navigate to ⁠/products to view the product list.
+  - Use the like, favourite and delete icons on each card to interact with the products.
+  - Click on a product card to view detailed information.
+  - Create new products via the ⁠/create-product page.
