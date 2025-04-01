@@ -38,20 +38,21 @@ This project is a Single Page Application (SPA) developed as a test assignment. 
 To run this project locally, follow these steps:
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/agapovk/alfa-test.git
-
+  ```bash
+  git clone https://github.com/agapovk/alfa-test.git
+  ```
 2.	Navigate to the project directory:
   ```bash
   cd alfa-test
-
+  ```
 3.	Install dependencies:
   ```bash
   npm install
-
+  ```
 4.	Start the application:
   ```bash
   npm run dev
+  ```
 
 ## Deployment
 The project is deployed on Vercel. Please find the live version [Deploy on Vercel](https://alfa-test-two.vercel.app/products)
