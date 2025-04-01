@@ -9,6 +9,11 @@ import { toast } from 'sonner';
 import ProductCard from './product-card';
 import { debounce } from 'lodash';
 
+// Move debounce function outside the component
+const debouncedUpdate = debounce((query, setDebouncedSearchQuery) => {
+  setDebouncedSearchQuery(query);
+}, 300);
+
 export default function ProductList() {
   const {
     products: storeProducts,
@@ -26,20 +31,12 @@ export default function ProductList() {
     fetchProducts();
   }, [fetchProducts]);
 
-  // Debounce function to update the debounced search query
-  const updateDebouncedSearchQuery = React.useCallback(
-    debounce((query) => {
-      setDebouncedSearchQuery(query);
-    }, 300), // 300 ms delay
-    []
-  );
-
   // Update the search query and debounced search query
-const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  const query = event.target.value;
-  setSearchQuery(query);
-  updateDebouncedSearchQuery(query);
-};
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    debouncedUpdate(query, setDebouncedSearchQuery);
+  };
 
   const filteredProducts = React.useMemo(() => {
     const filtered = storeProducts.filter((product) =>
@@ -97,15 +94,19 @@ const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onDelete={handleDelete}
-            onToggleFavourite={toggleFavourite}
-            onToggleLike={toggleLike}
-          />
-        ))}
+      {storeProducts.length === 0 ? (
+            <p className='py-4'>Please reload the page to fetch new data</p>
+        ) : (
+          filteredProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onDelete={handleDelete}
+              onToggleFavourite={toggleFavourite}
+              onToggleLike={toggleLike}
+            />
+          ))
+        )}
       </div>
     </>
   );
