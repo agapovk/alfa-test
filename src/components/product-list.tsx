@@ -62,6 +62,11 @@ const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOnlyFavourite((prev) => !prev);
   }, []);
 
+  const resetSearch = React.useCallback(() => {
+    setSearchQuery('');
+    setDebouncedSearchQuery('');
+  }, []);
+
   return (
     <>
       <div className="flex items-center gap-4">
@@ -76,7 +81,7 @@ const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => setSearchQuery('')}
+              onClick={resetSearch}
               className="absolute h-6 w-6 top-1/2 -translate-y-1/2 right-2 z-50 rounded-full bg-white"
             >
               <X />
