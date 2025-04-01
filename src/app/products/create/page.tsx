@@ -27,6 +27,7 @@ import { ArrowLeft } from 'lucide-react';
 import { useProductStore } from '@/stores/product-store';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import React, { useCallback } from 'react';
 
 const formSchema = z.object({
   title: z.string().min(1),
@@ -54,7 +55,7 @@ export default function CreateProductForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
     try {
       console.log(values);
       createProduct(values);
@@ -64,7 +65,7 @@ export default function CreateProductForm() {
       console.error('Form submission error', error);
       toast.error('Failed to submit the form. Please try again.');
     }
-  }
+  }, [createProduct, router]);
 
   return (
     <div className="space-y-6">

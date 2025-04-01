@@ -17,16 +17,18 @@ export default function Header() {
       <Link href="/" className="font-bold text-xl hover:text-muted-foreground">
         Test:title
       </Link>
-      <nav className="space-x-4">
-        {menu.map((item) => (
-          <Link
+      <nav>
+        <ul className="flex space-x-4">
+          {menu.map((item) => (
+            <Link
             key={item.href}
             href={item.href}
             className="hover:text-muted-foreground text-sm"
-          >
-            {item.title}
-          </Link>
-        ))}
+            >
+              {item.title}
+            </Link>
+          ))}
+        </ul>
       </nav>
     </header>
   );
