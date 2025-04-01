@@ -14,8 +14,8 @@ export default function Header() {
 
   return (
     <header className="border-b p-4 flex gap-4 justify-between">
-      <Link href="/" className="font-bold text-xl hover:text-muted-foreground">
-        Test:title
+      <Link href="/" className="text-xl hover:text-muted-foreground">
+        <strong>Alfa</strong>Test Project
       </Link>
       <nav>
         <ul className="flex space-x-4">
