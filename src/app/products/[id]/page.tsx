@@ -7,13 +7,14 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useProductStore } from '@/stores/product-store';
 import Link from 'next/link';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 
 export default function ProductPage() {
   const { products } = useProductStore();
-  const params = useParams();
-  const product = products.find((product) => product.id === Number(params.id));
+  const { id } = useParams();
+
+  const product = useMemo(() => products.find((product) => product.id === Number(id)), [products, id]);
 
   if (!product) {
     return (

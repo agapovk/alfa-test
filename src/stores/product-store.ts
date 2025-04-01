@@ -42,7 +42,7 @@ export const useProductStore = create<ProductStore>()(
             ...state.products,
             {
               ...product,
-              id: state.products.length + 1,
+              id: Math.max(0, ...state.products.map(p => p.id)) + 1,
               liked: false,
               favourite: false,
               image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
@@ -56,7 +56,9 @@ export const useProductStore = create<ProductStore>()(
       toggleLike: (id) =>
         set((state) => ({
           products: state.products.map((product) =>
-            product.id === id ? { ...product, liked: !product.liked } : product
+            product.id === id 
+              ? { ...product, liked: !product.liked } 
+              : product
           ),
         })),
       toggleFavourite: (id) =>

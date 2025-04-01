@@ -1,6 +1,6 @@
 import ProductList from '@/components/product-list';
 
-export default async function ProductsPage() {
+export default function ProductsPage() {
   return (
     <div className="space-y-4">
       <div>
