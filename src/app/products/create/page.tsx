@@ -80,10 +80,7 @@ export default function CreateProductForm() {
       </Button>
       <h1 className="text-2xl font-bold">Create new product</h1>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 max-w-3xl"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="title"

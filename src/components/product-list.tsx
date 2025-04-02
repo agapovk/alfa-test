@@ -101,7 +101,7 @@ export default function ProductList() {
           <span className="hidden sm:inline">Favourite</span>
         </Button>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {storeProducts.length === 0 ? (
           <p className="py-4">Please reload the page to fetch new data</p>
         ) : (

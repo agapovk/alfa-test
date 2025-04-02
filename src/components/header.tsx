@@ -13,11 +13,11 @@ export default function Header() {
   ];
 
   return (
-    <header className="border-b p-4 flex gap-4 justify-between">
-      <Link href="/" className="text-xl hover:text-muted-foreground">
-        <strong>Alfa</strong>Test Project
-      </Link>
-      <nav>
+    <header className="border-b">
+      <nav className="p-4 flex gap-4 justify-between container mx-auto max-w-5xl items-center">
+        <Link href="/" className="text-xl hover:text-muted-foreground">
+          <strong>Alfa</strong>Test Project
+        </Link>
         <ul className="flex space-x-4">
           {menu.map((item) => (
             <Link
