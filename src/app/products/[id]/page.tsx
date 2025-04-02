@@ -14,7 +14,10 @@ export default function ProductPage() {
   const { products } = useProductStore();
   const { id } = useParams();
 
-  const product = useMemo(() => products.find((product) => product.id === Number(id)), [products, id]);
+  const product = useMemo(
+    () => products.find((product) => product.id === Number(id)),
+    [products, id]
+  );
 
   if (!product) {
     return (

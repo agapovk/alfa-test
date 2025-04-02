@@ -29,7 +29,10 @@ function ProductCard({
 }: ProductCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg gap-4 py-4 relative">
-      <Link href={`/products/${product.id}`} className="absolute inset-0 z-10" />
+      <Link
+        href={`/products/${product.id}`}
+        className="absolute inset-0 z-10"
+      />
       <Button
         variant="ghost"
         size="icon"
@@ -53,9 +56,7 @@ function ProductCard({
           <Badge variant="outline" className="px-2 py-1">
             {product.category}
           </Badge>
-          <span className="font-bold text-lg">
-            ${product.price.toFixed(2)}
-          </span>
+          <span className="font-bold text-lg">${product.price.toFixed(2)}</span>
         </div>
         <h3 className="font-semibold text-lg line-clamp-1 mb-2">
           {product.title}

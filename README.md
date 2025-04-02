@@ -27,6 +27,7 @@ This project is a demonstration of a Next.js application designed to manage and 
 To explore the project locally, follow these steps:
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/yourrepository.git
    ```

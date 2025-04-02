@@ -45,15 +45,23 @@ export default function ProductList() {
     return onlyFavourite ? filtered.filter((p) => p.favourite) : filtered;
   }, [debouncedSearchQuery, storeProducts, onlyFavourite]);
 
-  const handleDelete = React.useCallback((id: number) => {
-    try {
-      deleteProduct(id);
-      toast('Product has been deleted');
-    } catch (error) {
-      console.error('Delete product error', error);
-      toast('Something went wrong');
-    }
-  }, [deleteProduct]);
+  const handleDelete = React.useCallback(
+    (id: number) => {
+      try {
+        deleteProduct(id);
+        toast('Product deleted', {
+          style: {
+            color: 'white',
+            backgroundColor: 'red',
+          },
+        });
+      } catch (error) {
+        console.error('Delete product error', error);
+        toast('Something went wrong');
+      }
+    },
+    [deleteProduct]
+  );
 
   const toggleFavouriteFilter = React.useCallback(() => {
     setOnlyFavourite((prev) => !prev);
@@ -94,8 +102,8 @@ export default function ProductList() {
         </Button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      {storeProducts.length === 0 ? (
-            <p className='py-4'>Please reload the page to fetch new data</p>
+        {storeProducts.length === 0 ? (
+          <p className="py-4">Please reload the page to fetch new data</p>
         ) : (
           filteredProducts.map((product) => (
             <ProductCard
