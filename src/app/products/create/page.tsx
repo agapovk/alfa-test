@@ -55,17 +55,20 @@ export default function CreateProductForm() {
     },
   });
 
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    try {
-      console.log(values);
-      createProduct(values);
-      toast.success('Product has been created');
-      router.push('/products');
-    } catch (error) {
-      console.error('Form submission error', error);
-      toast.error('Failed to submit the form. Please try again.');
-    }
-  }, [createProduct, router]);
+  const onSubmit = useCallback(
+    (values: z.infer<typeof formSchema>) => {
+      try {
+        console.log(values);
+        createProduct(values);
+        toast.success('Product has been created');
+        router.push('/products');
+      } catch (error) {
+        console.error('Form submission error', error);
+        toast.error('Failed to submit the form. Please try again.');
+      }
+    },
+    [createProduct, router]
+  );
 
   return (
     <div className="space-y-6">

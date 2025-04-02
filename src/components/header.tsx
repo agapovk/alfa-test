@@ -21,9 +21,9 @@ export default function Header() {
         <ul className="flex space-x-4">
           {menu.map((item) => (
             <Link
-            key={item.href}
-            href={item.href}
-            className="hover:text-muted-foreground text-sm"
+              key={item.href}
+              href={item.href}
+              className="hover:text-muted-foreground text-sm"
             >
               {item.title}
             </Link>
