@@ -73,7 +73,7 @@ const technologies = [
 
 export default function HomePage() {
   return (
-    <div className="container mx-auto py-8 space-y-10 max-w-3xl">
+    <div className="space-y-10">
       <section>
         <h1 className="text-4xl font-bold tracking-tight mb-2">
           Alfa Test Project
