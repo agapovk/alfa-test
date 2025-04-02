@@ -1,4 +1,4 @@
-import { fetchProducts } from '@/actions';
+import { fetchProducts } from '@/app/actions';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
