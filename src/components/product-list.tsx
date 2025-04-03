@@ -42,9 +42,9 @@ export default function ProductList() {
         }
       }
     };
-  
+
     loadProducts();
-  
+
     // Cleanup function to prevent state updates after unmount
     return () => {
       isMounted = false;
@@ -56,11 +56,11 @@ export default function ProductList() {
     const debouncedFn = debounce((query: string) => {
       setDebouncedSearchQuery(query);
     }, 300);
-    
+
     // Return the debounced function
     return debouncedFn;
   }, []);
-  
+
   // Clean up the debounced function on unmount
   React.useEffect(() => {
     return () => {
@@ -90,8 +90,8 @@ export default function ProductList() {
         deleteProduct(id);
         toast('Product deleted', {
           style: {
-            color: 'white',
-            backgroundColor: 'red',
+            color: 'red',
+            borderColor: 'red',
           },
         });
       } catch (error) {
@@ -143,7 +143,11 @@ export default function ProductList() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {isLoading ? (
           <div className="col-span-full flex justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin" role="status" aria-label="Loading" />
+            <Loader2
+              className="h-8 w-8 animate-spin"
+              role="status"
+              aria-label="Loading"
+            />
           </div>
         ) : storeProducts.length === 0 ? (
           <p className="py-4">Please reload the page to fetch new data</p>
