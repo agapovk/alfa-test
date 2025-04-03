@@ -29,12 +29,12 @@ To explore the project locally, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/yourrepository.git
+   git clone https://github.com/agapovk/alfa-test
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd yourrepository
+   cd alfa-test
    ```
 3. Install dependencies:
    ```bash
@@ -44,3 +44,16 @@ To explore the project locally, follow these steps:
    ```bash
    npm run dev
    ```
+
+## Testing
+
+This project includes a suite of tests to ensure functionality and reliability. To run the tests, use the following command:
+
+```bash
+npm test
+```
+
+### Testing Frameworks
+
+- Jest : Used for running unit and integration tests.
+- React Testing Library : Utilized for testing React components in a user-centric way.
