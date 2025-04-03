@@ -30,10 +30,10 @@ import Image from 'next/image';
 import React, { useCallback } from 'react';
 
 const formSchema = z.object({
-  title: z.string().min(1),
-  price: z.coerce.number(),
-  description: z.string().min(1),
-  category: z.string(),
+  title: z.string().min(1, 'Title is required'),
+  price: z.coerce.number({ message: 'Must be a number' }),
+  description: z.string({ message: 'Description is required' }).min(1),
+  category: z.string({ message: 'Category is required' }),
 });
 
 const categories = [
@@ -58,7 +58,6 @@ export default function CreateProductForm() {
   const onSubmit = useCallback(
     (values: z.infer<typeof formSchema>) => {
       try {
-        console.log(values);
         createProduct(values);
         toast.success('Product has been created');
         router.push('/products');
@@ -103,7 +102,7 @@ export default function CreateProductForm() {
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <Input placeholder="$" type="number" {...field} />
+                  <Input placeholder="$" {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -147,7 +146,11 @@ export default function CreateProductForm() {
                   </FormControl>
                   <SelectContent>
                     {categories.map((category) => (
-                      <SelectItem key={category} value={category}>
+                      <SelectItem
+                        key={category}
+                        value={category}
+                        data-testid={category}
+                      >
                         {category}
                       </SelectItem>
                     ))}

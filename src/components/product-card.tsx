@@ -40,6 +40,7 @@ function ProductCard({
         className="absolute h-6 w-6 top-2 right-2 z-50 rounded-full bg-white"
       >
         <X />
+        <span className="sr-only">Delete</span>
       </Button>
       <CardHeader className="p-0 aspect-video relative">
         <Image
@@ -84,6 +85,7 @@ function ProductCard({
             )}
           >
             <ThumbsUp className={cn(product.liked && 'text-white')} />
+            <span className="sr-only">Like</span>
           </Button>
         </div>
       </CardFooter>
