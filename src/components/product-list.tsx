@@ -13,6 +13,7 @@ export default function ProductList() {
   const {
     products: storeProducts,
     deleteProduct,
+    restoreProduct,
     fetchProducts,
     toggleLike,
     toggleFavourite,
@@ -86,20 +87,22 @@ export default function ProductList() {
 
   const handleDelete = React.useCallback(
     (id: number) => {
-      try {
-        deleteProduct(id);
-        toast('Product deleted', {
-          style: {
-            color: 'red',
-            borderColor: 'red',
+      const deletedProduct = storeProducts.find((p) => p.id === id);
+      if (!deletedProduct) return;
+
+      deleteProduct(id);
+      toast.warning('Product deleted', {
+        action: {
+          label: 'Undo',
+          onClick: () => {
+            restoreProduct(id);
+            toast.success('Product restored');
           },
-        });
-      } catch (error) {
-        console.error('Delete product error', error);
-        toast('Something went wrong');
-      }
+        },
+        duration: 3000,
+      });
     },
-    [deleteProduct]
+    [deleteProduct, restoreProduct, storeProducts] // Add storeProducts to dependencies
   );
 
   const toggleFavouriteFilter = React.useCallback(() => {

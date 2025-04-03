@@ -15,10 +15,12 @@ export type Product = {
 
 type ProductStore = {
   products: Product[];
+  deletedProducts: Product[];
   setProducts: (products: Product[]) => void;
   fetchProducts: () => void;
   createProduct: (product: NewProduct) => void;
   deleteProduct: (id: number) => void;
+  restoreProduct: (id: number) => void; // Add this line
   toggleLike: (id: number) => void;
   toggleFavourite: (id: number) => void;
 };
@@ -29,6 +31,7 @@ export const useProductStore = create<ProductStore>()(
   persist(
     (set, get) => ({
       products: [],
+      deletedProducts: [], // Add deletedProducts array
       setProducts: (products) => set({ products }),
       fetchProducts: async () => {
         if (get().products.length === 0) {
@@ -49,10 +52,32 @@ export const useProductStore = create<ProductStore>()(
             },
           ],
         })),
-      deleteProduct: (id) =>
-        set((state) => ({
-          products: state.products.filter((product) => product.id !== id),
-        })),
+      deleteProduct: (id: number) => {
+        set((state) => {
+          const productToDelete = state.products.find((p) => p.id === id);
+          return productToDelete
+            ? {
+                products: state.products.filter((p) => p.id !== id),
+                deletedProducts: [...state.deletedProducts, productToDelete],
+              }
+            : state;
+        });
+      },
+      restoreProduct: (id: number) => {
+        set((state) => {
+          const productToRestore = state.deletedProducts.find(
+            (p) => p.id === id
+          );
+          return productToRestore
+            ? {
+                products: [...state.products, productToRestore],
+                deletedProducts: state.deletedProducts.filter(
+                  (p) => p.id !== id
+                ),
+              }
+            : state;
+        });
+      },
       toggleLike: (id) =>
         set((state) => ({
           products: state.products.map((product) =>
