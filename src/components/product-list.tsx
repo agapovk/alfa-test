@@ -120,7 +120,7 @@ export default function ProductList() {
         <div className="relative">
           <Input
             placeholder="Find a product..."
-            className="h-8 w-[150px] lg:w-[250px]"
+            className="w-[200px] sm:w-[250px]"
             value={searchQuery}
             onChange={handleSearchChange}
           />
