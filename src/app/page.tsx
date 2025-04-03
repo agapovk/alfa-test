@@ -9,11 +9,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import {
-  Heart,
   DatabaseBackup,
   Proportions,
   Captions,
   MoveRight,
+  TestTubeDiagonal,
 } from 'lucide-react';
 import FeatureCard from '@/components/feature-card';
 
@@ -23,14 +23,7 @@ const features = [
     title: 'Dynamic Product Management',
     description:
       'Create, delete, and filter products with ease. The application provides intuitive controls for managing your product inventory.',
-    badges: ['Add Product', 'Delete', 'Filter', 'Search'],
-  },
-  {
-    icon: Heart,
-    title: 'User Interaction',
-    description:
-      'Toggle favourites and likes for a personalized user experience. Keep track of your preferred products with intuitive controls.',
-    badges: ['Favourite', 'Like'],
+    badges: ['Add Product', 'Delete', 'Filter', 'Search', 'Favourite', 'Like'],
   },
   {
     icon: Proportions,
@@ -45,6 +38,13 @@ const features = [
     description:
       'Make form validation and handle form create products. View toast notification and redirect to products page.',
     badges: ['React Hook Form', 'Zod validation'],
+  },
+  {
+    icon: TestTubeDiagonal,
+    title: 'Testing integration',
+    description:
+      'Test the application using Jest and React Testing Library. The tests ensure the application functions as expected.',
+    badges: ['jest', 'react-testing-library'],
   },
 ];
 
@@ -68,6 +68,11 @@ const technologies = [
   {
     title: 'TypeScript',
     description: 'For type safety and enhanced development experience.',
+  },
+  {
+    title: 'Jest',
+    description:
+      'For testing React components, ensuring all features work as expected.',
   },
 ];
 
@@ -146,10 +151,12 @@ export default function HomePage() {
       <section>
         <h2 className="text-2xl font-bold mb-6">Installation</h2>
         <Card>
-          <CardContent className="pt-0">
+          <CardContent className="pt-0 text-sm">
             <div className="space-y-4">
               <div>
-                <h3 className="font-medium mb-2">1. Clone the repository:</h3>
+                <h3 className="font-medium mb-2 text-muted-foreground">
+                  1. Clone the repository:
+                </h3>
                 <div className="bg-muted p-3 rounded-md">
                   <code className="text-sm">
                     git clone https://github.com/agapovk/alfa-test.git
@@ -158,7 +165,7 @@ export default function HomePage() {
               </div>
 
               <div>
-                <h3 className="font-medium mb-2">
+                <h3 className="font-medium mb-2 text-muted-foreground">
                   2. Navigate to the project directory:
                 </h3>
                 <div className="bg-muted p-3 rounded-md">
@@ -167,18 +174,29 @@ export default function HomePage() {
               </div>
 
               <div>
-                <h3 className="font-medium mb-2">3. Install dependencies:</h3>
+                <h3 className="font-medium mb-2 text-muted-foreground">
+                  3. Install dependencies:
+                </h3>
                 <div className="bg-muted p-3 rounded-md">
                   <code className="text-sm">npm install</code>
                 </div>
               </div>
 
               <div>
-                <h3 className="font-medium mb-2">
+                <h3 className="font-medium mb-2 text-muted-foreground">
                   4. Run the development server:
                 </h3>
                 <div className="bg-muted p-3 rounded-md">
                   <code className="text-sm">npm run dev</code>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="font-medium mb-2 text-muted-foreground">
+                  5. For testing:
+                </h3>
+                <div className="bg-muted p-3 rounded-md">
+                  <code className="text-sm">npm run test</code>
                 </div>
               </div>
             </div>
