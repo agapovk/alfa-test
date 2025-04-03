@@ -1,5 +1,10 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import ProductList from '@/components/product-list';
 import { useProductStore } from '@/stores/product-store';
 
@@ -7,6 +12,8 @@ import { useProductStore } from '@/stores/product-store';
 jest.mock('@/stores/product-store', () => ({
   useProductStore: jest.fn(),
 }));
+
+jest.useFakeTimers();
 
 describe('ProductList', () => {
   beforeEach(() => {
@@ -36,30 +43,58 @@ describe('ProductList', () => {
           favourite: true,
         },
       ],
-      fetchProducts: jest.fn(),
+      fetchProducts: jest.fn().mockResolvedValue(undefined),
       deleteProduct: jest.fn(),
       toggleLike: jest.fn(),
       toggleFavourite: jest.fn(),
     });
   });
 
-  it('renders product titles', () => {
-    render(<ProductList />);
-    expect(screen.getByText('Product 1')).toBeInTheDocument();
-    expect(screen.getByText('Product 2')).toBeInTheDocument();
+  afterEach(() => {
+    jest.clearAllTimers();
   });
 
-  it('likes a product', () => {
+  it('shows loading spinner initially', () => {
     render(<ProductList />);
-    const likeButton = screen.getAllByRole('button', { name: /like/i })[0];
-    fireEvent.click(likeButton);
-    expect(useProductStore().toggleLike).toHaveBeenCalledWith(1);
+    expect(screen.getByRole('status')).toBeInTheDocument();
+  });
+
+  it('renders product titles after loading', async () => {
+    render(<ProductList />);
+
+    jest.advanceTimersByTime(1000);
+
+    await waitFor(() => {
+      expect(screen.getByText('Product 1')).toBeInTheDocument();
+      expect(screen.getByText('Product 2')).toBeInTheDocument();
+    });
+  });
+
+  it('likes a product', async () => {
+    render(<ProductList />);
+
+    jest.advanceTimersByTime(1000);
+
+    await waitFor(() => {
+      const likeButton = screen.getAllByRole('button', { name: /like/i })[0];
+      fireEvent.click(likeButton);
+      expect(useProductStore().toggleLike).toHaveBeenCalledWith(1);
+    });
   });
 
   it('filters products by search query', async () => {
     render(<ProductList />);
-    const searchInput = screen.getByPlaceholderText('Find a product...');
-    fireEvent.change(searchInput, { target: { value: 'Product 1' } });
+
+    jest.advanceTimersByTime(1000);
+
+    await waitFor(() => {
+      const searchInput = screen.getByPlaceholderText('Find a product...');
+      fireEvent.change(searchInput, { target: { value: 'Product 1' } });
+    });
+
+    act(() => {
+      jest.advanceTimersByTime(300);
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Product 1')).toBeInTheDocument();
@@ -67,33 +102,58 @@ describe('ProductList', () => {
     });
   });
 
-  it('filters products by favourite', () => {
+  it('filters products by favourite', async () => {
     render(<ProductList />);
-    const favouriteButton = screen.getByRole('button', { name: /favourite/i });
-    fireEvent.click(favouriteButton);
-    expect(screen.queryByText('Product 1')).not.toBeInTheDocument();
-    expect(screen.getByText('Product 2')).toBeInTheDocument();
+
+    jest.advanceTimersByTime(1000);
+
+    await waitFor(() => {
+      const favouriteButton = screen.getByRole('button', {
+        name: /favourite/i,
+      });
+      fireEvent.click(favouriteButton);
+    });
+
+    await waitFor(() => {
+      expect(screen.queryByText('Product 1')).not.toBeInTheDocument();
+      expect(screen.getByText('Product 2')).toBeInTheDocument();
+    });
   });
 
-  it('deletes a product', () => {
+  it('deletes a product', async () => {
     render(<ProductList />);
-    const deleteButton = screen.getAllByRole('button', { name: /delete/i })[0];
-    fireEvent.click(deleteButton);
-    expect(useProductStore().deleteProduct).toHaveBeenCalledWith(1);
+
+    jest.advanceTimersByTime(1000);
+
+    await waitFor(() => {
+      const deleteButton = screen.getAllByRole('button', {
+        name: /delete/i,
+      })[0];
+      fireEvent.click(deleteButton);
+      expect(useProductStore().deleteProduct).toHaveBeenCalledWith(1);
+    });
   });
 
-  it('shows "Message" when no products are available', () => {
+  it('shows message when no products are available', async () => {
     const mockUseProductStore = useProductStore as jest.MockedFunction<
       typeof useProductStore
     >;
     mockUseProductStore.mockReturnValue({
       products: [],
-      fetchProducts: jest.fn(),
+      fetchProducts: jest.fn().mockResolvedValue(undefined),
+      deleteProduct: jest.fn(),
+      toggleLike: jest.fn(),
+      toggleFavourite: jest.fn(),
     });
 
     render(<ProductList />);
-    expect(
-      screen.getByText('Please reload the page to fetch new data')
-    ).toBeInTheDocument();
+
+    jest.advanceTimersByTime(1000);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Please reload the page to fetch new data')
+      ).toBeInTheDocument();
+    });
   });
 });
