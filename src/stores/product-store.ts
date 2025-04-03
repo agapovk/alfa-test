@@ -15,7 +15,7 @@ export type Product = {
 
 type ProductStore = {
   products: Product[];
-  deletedProducts: Product[];
+  deletedProducts: Array<{ product: Product; originalIndex: number }>;
   setProducts: (products: Product[]) => void;
   fetchProducts: () => void;
   createProduct: (product: NewProduct) => void;
@@ -31,7 +31,7 @@ export const useProductStore = create<ProductStore>()(
   persist(
     (set, get) => ({
       products: [],
-      deletedProducts: [], // Add deletedProducts array
+      deletedProducts: [],
       setProducts: (products) => set({ products }),
       fetchProducts: async () => {
         if (get().products.length === 0) {
@@ -54,28 +54,41 @@ export const useProductStore = create<ProductStore>()(
         })),
       deleteProduct: (id: number) => {
         set((state) => {
-          const productToDelete = state.products.find((p) => p.id === id);
-          return productToDelete
-            ? {
-                products: state.products.filter((p) => p.id !== id),
-                deletedProducts: [...state.deletedProducts, productToDelete],
-              }
-            : state;
+          const index = state.products.findIndex((p) => p.id === id);
+          if (index === -1) return state;
+
+          const productToDelete = state.products[index];
+          return {
+            products: state.products.filter((p) => p.id !== id),
+            deletedProducts: [
+              ...state.deletedProducts,
+              { product: productToDelete, originalIndex: index },
+            ],
+          };
         });
       },
+
       restoreProduct: (id: number) => {
         set((state) => {
-          const productToRestore = state.deletedProducts.find(
-            (p) => p.id === id
+          const deletedEntry = state.deletedProducts.find(
+            (entry) => entry.product?.id === id
           );
-          return productToRestore
-            ? {
-                products: [...state.products, productToRestore],
-                deletedProducts: state.deletedProducts.filter(
-                  (p) => p.id !== id
-                ),
-              }
-            : state;
+
+          if (!deletedEntry) return state; // Ensure deletedEntry exists
+
+          const newProducts = [...state.products];
+          newProducts.splice(
+            deletedEntry.originalIndex,
+            0,
+            deletedEntry.product
+          );
+
+          return {
+            products: newProducts,
+            deletedProducts: state.deletedProducts.filter(
+              (entry) => entry.product?.id !== id
+            ),
+          };
         });
       },
       toggleLike: (id) =>
