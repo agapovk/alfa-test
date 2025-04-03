@@ -79,7 +79,7 @@ const technologies = [
 export default function HomePage() {
   return (
     <div className="space-y-10">
-      <section>
+      <section className="text-center sm:text-start">
         <h1 className="text-4xl font-bold tracking-tight mb-2">
           Alfa Test Project
         </h1>
@@ -114,7 +114,9 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6">Key Features</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center sm:text-start">
+          Key Features
+        </h2>
         <div className="grid md:grid-cols-2 gap-6">
           {features.map(({ icon, title, description, badges }) => (
             <FeatureCard
@@ -129,7 +131,9 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6">Technologies Used</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center sm:text-start">
+          Technologies Used
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
           {technologies.map(({ title, description }) => (
             <Card key={title}>
@@ -149,7 +153,9 @@ export default function HomePage() {
       </section>
 
       <section>
-        <h2 className="text-2xl font-bold mb-6">Installation</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center sm:text-start">
+          Installation
+        </h2>
         <Card>
           <CardContent className="pt-0 text-sm">
             <div className="space-y-4">
