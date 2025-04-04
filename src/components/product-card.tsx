@@ -49,7 +49,8 @@ function ProductCard({
           alt={product.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={true}
+          priority={false}
+          loading="lazy"
           className="object-contain transition-transform hover:scale-105"
         />
       </CardHeader>

@@ -140,6 +140,8 @@ export default function ProductList() {
           )}
         </div>
         <Button
+          aria-label="Show Favourites"
+          name="Show favourites"
           variant={onlyFavourite ? 'default' : 'outline'}
           onClick={toggleFavouriteFilter}
           disabled={favouriteCount === 0}
