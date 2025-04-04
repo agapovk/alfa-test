@@ -114,6 +114,10 @@ export default function ProductList() {
     setDebouncedSearchQuery('');
   }, []);
 
+  const favouriteCount = React.useMemo(() => {
+    return storeProducts.filter((p) => p.favourite).length;
+  }, [storeProducts]);
+
   return (
     <>
       <div className="flex items-center gap-4">
@@ -138,6 +142,7 @@ export default function ProductList() {
         <Button
           variant={onlyFavourite ? 'default' : 'outline'}
           onClick={toggleFavouriteFilter}
+          disabled={favouriteCount === 0}
         >
           <Star />
           <span className="hidden sm:inline">Favourite</span>
