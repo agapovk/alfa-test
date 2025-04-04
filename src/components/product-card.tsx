@@ -30,6 +30,7 @@ function ProductCard({
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg gap-4 py-4 relative">
       <Link
+        aria-label="Link to product details page"
         href={`/products/${product.id}`}
         className="absolute inset-0 z-10"
       />
@@ -59,15 +60,16 @@ function ProductCard({
           </Badge>
           <span className="font-bold text-lg">${product.price.toFixed(2)}</span>
         </div>
-        <h3 className="font-semibold text-lg line-clamp-1 mb-2">
+        <p className="font-semibold text-lg line-clamp-1 mb-2">
           {product.title}
-        </h3>
+        </p>
       </CardContent>
       <CardFooter className="flex items-center justify-between px-4">
         <Button>Add to Cart</Button>
         <div className="flex gap-2 items-center">
           <Button
             aria-label="Favourite button"
+            name="Favourite button"
             variant="outline"
             onClick={() => onToggleFavourite(product.id)}
             className={cn(
@@ -79,6 +81,7 @@ function ProductCard({
           </Button>
           <Button
             aria-label="Like button"
+            name="Like button"
             variant="outline"
             onClick={() => onToggleLike(product.id)}
             className={cn(
