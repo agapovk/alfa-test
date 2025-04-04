@@ -20,13 +20,14 @@ export default function Header() {
         </Link>
         <ul className="flex space-x-4">
           {menu.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="hover:text-muted-foreground text-sm"
-            >
-              {item.title}
-            </Link>
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="hover:text-muted-foreground text-sm"
+              >
+                {item.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </nav>

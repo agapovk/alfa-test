@@ -67,6 +67,7 @@ function ProductCard({
         <Button>Add to Cart</Button>
         <div className="flex gap-2 items-center">
           <Button
+            aria-label="Favourite button"
             variant="outline"
             onClick={() => onToggleFavourite(product.id)}
             className={cn(
@@ -77,6 +78,7 @@ function ProductCard({
             <Star className={cn(product.favourite && 'text-white')} />
           </Button>
           <Button
+            aria-label="Like button"
             variant="outline"
             onClick={() => onToggleLike(product.id)}
             className={cn(
