@@ -1,4 +1,3 @@
-import { fetchProducts } from '@/app/actions';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -17,7 +16,7 @@ type ProductStore = {
   products: Product[];
   deletedProducts: Array<{ product: Product; originalIndex: number }>;
   setProducts: (products: Product[]) => void;
-  fetchProducts: () => void;
+  fetchProducts: () => Promise<void>;
   createProduct: (product: NewProduct) => void;
   deleteProduct: (id: number) => void;
   restoreProduct: (id: number) => void; // Add this line
@@ -35,8 +34,22 @@ export const useProductStore = create<ProductStore>()(
       setProducts: (products) => set({ products }),
       fetchProducts: async () => {
         if (get().products.length === 0) {
-          const fetchedProducts = await fetchProducts();
-          set({ products: fetchedProducts || [] });
+          try {
+            const response = await fetch('https://fakestoreapi.com/products');
+            if (!response.ok) {
+              throw new Error(`Error fetching products: ${response.statusText}`);
+            }
+            const data = await response.json();
+            const productsWithState = data.map((product: any) => ({
+              ...product,
+              liked: false,
+              favourite: false,
+            }));
+            set({ products: productsWithState });
+          } catch (error) {
+            console.error('Failed to fetch products:', error);
+            throw error;
+          }
         }
       },
       createProduct: (product: NewProduct) =>
@@ -48,7 +61,8 @@ export const useProductStore = create<ProductStore>()(
               id: Math.max(0, ...state.products.map((p) => p.id)) + 1,
               liked: false,
               favourite: false,
-              image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+              image:
+                'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
             },
           ],
         })),

@@ -166,7 +166,7 @@ export default function CreateProductForm() {
           </p>
           <div className="relative aspect-video md:sticky md:top-24">
             <Image
-              src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+              src="/backpack.webp"
               alt="The backpack image"
               fill
               className="object-contain rounded-lg border bg-white p-4"
